@@ -3,6 +3,7 @@ import sys
 
 class irc:
     conn = False
+    user = False 
     def connect(self, server):
         self.conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.conn.connect((server, 6667))
@@ -16,6 +17,9 @@ class irc:
 
     def quote(self, quote):
         self.conn.send('QUOTE ' + quote)
+
+    def msg(self, channel, msg):
+        self.conn.send('PRIVMSG ' + channel + ' :' + msg)
 
     def auth(self, user, password):
         self.quote('auth ' + user + ' ' + password)
